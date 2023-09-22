@@ -16,25 +16,58 @@
     <Filter Include="Header Files\debug">
       <UniqueIdentifier>{7bf18ddf-89c3-47b5-b0bc-8430ffb4c804}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\stdlib">
-      <UniqueIdentifier>{8072b846-2f04-457d-9f0d-861e2dc4020b}</UniqueIdentifier>
+    <Filter Include="Header Files\encryption">
+      <UniqueIdentifier>{15fb43aa-ea22-4ce0-9404-7612faad8594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\encryption">
+      <UniqueIdentifier>{a72ad9cd-3200-4519-9289-f6fe5349edc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\anti-analysis">
+      <UniqueIdentifier>{78d90ea6-3859-40ef-a668-890bfdac7cf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\anti-analysis">
+      <UniqueIdentifier>{2b30b5b2-17fa-4b65-b6bc-775bfa00bdf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\anti-analysis\anti-disass-asm">
+      <UniqueIdentifier>{eb290902-75ad-40ef-b61d-7afb5cb382fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\mutex">
+      <UniqueIdentifier>{8d646cd0-062a-4d0f-b2f5-e9f64c8d963f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\mutex">
+      <UniqueIdentifier>{34ab1ee7-f7a9-4a93-bb52-1dbf4675e5a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="printf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="custom_loaderapi.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rc4.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="string_hashing.c">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rc4.c">
+      <Filter>Source Files\encryption</Filter>
+    </ClCompile>
+    <ClCompile Include="anti-disass.c">
+      <Filter>Source Files\anti-analysis</Filter>
+    </ClCompile>
+    <ClCompile Include="anti-debug.c">
+      <Filter>Source Files\anti-analysis</Filter>
+    </ClCompile>
+    <ClCompile Include="indirect_syscall.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mutex.c">
+      <Filter>Source Files\mutex</Filter>
+    </ClCompile>
+    <ClCompile Include="IAT_Obfuscation.h">
+      <Filter>Header Files\anti-analysis</Filter>
+    </ClCompile>
+    <ClCompile Include="IAT_Obfuscation.c">
+      <Filter>Source Files\anti-analysis</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,16 +77,10 @@
     <ClInclude Include="debug.h">
       <Filter>Header Files\debug</Filter>
     </ClInclude>
-    <ClInclude Include="printf.h">
-      <Filter>Header Files\stdlib</Filter>
-    </ClInclude>
     <ClInclude Include="custom_loaderapi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="structs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="rc4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ntstatus.h">
@@ -62,5 +89,50 @@
     <ClInclude Include="string_hashing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="rc4.h">
+      <Filter>Header Files\encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="anti-debug.h">
+      <Filter>Header Files\anti-analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="anti-vm.h">
+      <Filter>Header Files\anti-analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="anti-sandbox.h">
+      <Filter>Header Files\anti-analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="anti-disass.h">
+      <Filter>Header Files\anti-analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="indirect_syscall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="typedefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mutex.h">
+      <Filter>Header Files\mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="anti-disass-x64.asm">
+      <Filter>Source Files\anti-analysis\anti-disass-asm</Filter>
+    </MASM>
+    <MASM Include="indirech_syscall.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="tiger.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="payload.bin">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

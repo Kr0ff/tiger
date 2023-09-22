@@ -1,0 +1,23 @@
+.data
+
+  wSystemCall       DWORD	0h	
+  qSyscallInsAdress QWORD	0h	
+
+.code
+
+  SetSSn PROC
+      mov wSystemCall, 0h
+      mov qSyscallInsAdress, 0h
+      mov wSystemCall, ecx		; saving the ssn value to wSystemCall
+      mov qSyscallInsAdress, rdx	; saving the syscall instruction address to qSyscallInsAdress	
+      ret
+  SetSSn ENDP
+  
+  RunSyscall PROC
+      mov r10, rcx
+      mov eax, wSystemCall		
+      jmp qword ptr [qSyscallInsAdress]	; jumping to qSyscallInsAdress instead of calling 'syscall'
+      ret
+  RunSyscall ENDP
+
+end

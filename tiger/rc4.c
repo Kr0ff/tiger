@@ -76,3 +76,27 @@ NTSTATUS WINAPI SystemFunction032(struct ustring* data, const struct ustring* ke
 
     return STATUS_SUCCESS;
 }
+
+NTSTATUS CryptMemory032(PVOID memoryAddr, SIZE_T memoryblkSize, char* key, SIZE_T keySize) {
+   
+    NTSTATUS STATUS = NULL;
+
+    struct ustring _data;
+    struct ustring _key;
+
+    _data.Buffer = (PUCHAR)memoryAddr;
+    _data.Length = memoryblkSize;
+
+    printf("[+] USTRING ->\n\tBuffer: %#p\n\tSize: %ld\n", _data.Buffer, _data.Length);
+    //getchar();
+
+    _key.Buffer = (PUCHAR)key;
+    _key.Length = keySize;
+
+    if ((STATUS = SystemFunction032(&_data, &_key)) != STATUS_SUCCESS) {
+        return STATUS_UNSUCCESSFUL;
+    }
+    else {
+        return STATUS_SUCCESS;
+    }
+}

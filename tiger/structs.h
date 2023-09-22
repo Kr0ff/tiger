@@ -5,12 +5,11 @@
 							STRUCTURES
 ======================================================================*/
 
-struct ustring {
-	DWORD Length;
-	DWORD MaximumLength;
+typedef struct ustring {
+	SIZE_T Length;
+	SIZE_T MaximumLength;
 	PUCHAR Buffer;
-} _data, key;
-
+} data, key;
 
 typedef struct _LSA_UNICODE_STRING {
 	USHORT Length;
