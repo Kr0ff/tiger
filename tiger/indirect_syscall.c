@@ -24,14 +24,14 @@ BOOL ObtainSyscall(IN DWORD64 dwSysHash, OUT PNTSYSCALL pNtSys) {
 		if (!InitNtdllStruct()) {
 			return FALSE;
 		}
-		printf("[+] Initialised the NTDLL structure !\n");
+		//PRINTA("[+] Initialised the NTDLL structure !\n");
 	}
-	//printf("[+] Got base address of NTDLL -> %#p\n", (PVOID)_G_NtdllConf.uModule);
+	//PRINTA("[+] Got base address of NTDLL -> %#p\n", (PVOID)_G_NtdllConf.uModule);
 	
 	// if no hash value was specified
 	if (dwSysHash != NULL) {
 		pNtSys->dwSyscallHash = dwSysHash;
-		//printf("[!] dwSyscallHash -> %llx\n", pNtSys->dwSyscallHash);
+		//PRINTA("[!] dwSyscallHash -> %llx\n", pNtSys->dwSyscallHash);
 	}
 	else {
 		return FALSE;
@@ -43,7 +43,7 @@ BOOL ObtainSyscall(IN DWORD64 dwSysHash, OUT PNTSYSCALL pNtSys) {
 		PCHAR pFunctionName = (PCHAR)(_G_NtdllConf.uModule + _G_NtdllConf.pdwArrayOfNames[index]);
 		PVOID pFunctionAddr = (PVOID)(_G_NtdllConf.uModule + _G_NtdllConf.pdwArrayOfAddresses[_G_NtdllConf.pwArrayOfOrdinals[index]]);
 		/*
-		printf("[*] SYSCALL FUNCTION INFO -> \n\
+		PRINTA("[*] SYSCALL FUNCTION INFO -> \n\
 \t\t- FUNCTION NAME ->		%s\n\
 \t\t- FUNCTION ADDRESS ->		%#p\n", pFunctionName, pFunctionAddr);
 		//getchar();

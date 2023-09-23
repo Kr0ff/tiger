@@ -1,6 +1,5 @@
 #include "mutex.h"
 #include "custom_loaderapi.h"
-#include "indirect_syscall.h"
 #include "string_hashing.h"
 #include "typedefs.h"
 
@@ -19,7 +18,7 @@ HANDLE _CreateMutex(LPCWSTR mutexName) {
 	hMutex = CreateMutexW(NULL, 1, mutexName);
 	switch (GetLastError()) {
 	case ERROR_ALREADY_EXISTS:
-		printf("[!] Mutex already exists\n");
+		//PRINTA("[!] Mutex already exists\n");
 		goto CLEANUP;
 		break;
 	}
@@ -50,7 +49,7 @@ BOOL _DestroyMutex(HANDLE hMutex) {
 
 	res = ReleaseMutex(hMutex);
 	if (res != 0) {
-		printf("[+] Mutex released\n");
+		//PRINTA("[+] Mutex released\n");
 		res = TRUE;
 	}
 	else {

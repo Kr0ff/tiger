@@ -1,4 +1,4 @@
-#include <windows.h>
+#include "structs.h"
 
 #define _GetModuleHandle Custom_GetModuleHandle
 #define _GetProcAddress Custom_GetProcAddress

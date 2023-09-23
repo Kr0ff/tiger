@@ -1,4 +1,3 @@
-#include <stdarg.h>
 #include "structs.h"
 #include "ntstatus.h"
 

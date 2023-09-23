@@ -87,9 +87,6 @@ NTSTATUS CryptMemory032(PVOID memoryAddr, SIZE_T memoryblkSize, char* key, SIZE_
     _data.Buffer = (PUCHAR)memoryAddr;
     _data.Length = memoryblkSize;
 
-    printf("[+] USTRING ->\n\tBuffer: %#p\n\tSize: %ld\n", _data.Buffer, _data.Length);
-    //getchar();
-
     _key.Buffer = (PUCHAR)key;
     _key.Length = keySize;
 

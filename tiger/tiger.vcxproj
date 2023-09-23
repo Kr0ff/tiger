@@ -189,14 +189,14 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
+      <OptimizeReferences>false</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <EntryPointSymbol>main</EntryPointSymbol>
       <SetChecksum>true</SetChecksum>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -220,6 +220,7 @@
     <ClInclude Include="debug.h" />
     <ClInclude Include="helper_functions.h" />
     <ClInclude Include="indirect_syscall.h" />
+    <ClInclude Include="intrinsic.h" />
     <ClInclude Include="mutex.h" />
     <ClInclude Include="ntstatus.h" />
     <ClInclude Include="rc4.h" />

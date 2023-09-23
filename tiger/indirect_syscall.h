@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include "structs.h"
 #include "string_hashing.h"
+#include "typedefs.h"
 
 typedef struct _NTSYSCALL {
     DWORD dwSSN;                    // syscall number
@@ -26,6 +26,7 @@ typedef struct _NTAPI_FUNC
     NTSYSCALL	NtProtectVirtualMemory;
     NTSYSCALL	NtCreateThreadEx;
     NTSYSCALL	NtWaitForSingleObject;
+    NTSYSCALL   NtDelayExecution;
 
 }NTAPI_FUNC, * PNTAPI_FUNC;
 

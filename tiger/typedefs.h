@@ -22,6 +22,11 @@
 #define NTCREATETHREADEX_HASH   		0xffffffff2073465a
 #define NTWAITFORSINGLEOBJECT_HASH  	0xffffffffdd554681
 #define RTLSETPROCESSISCRITICAL_HASH    0xffffffff26f94a0b
+#define NTDELAYEXECUTION_HASH           0xfffffffff5a86278
+
+#define NtCurrentProcess() ((HANDLE)-1) // Return the pseudo handle for the current process
+#define NtCurrentThread()  ((HANDLE)-2) // Return the pseudo handle for the current thread
+
 
 // Hashes of WinAPI Function
 typedef HANDLE(WINAPI* t_CreateMutexW)(
@@ -75,4 +80,8 @@ typedef NTSTATUS (NTAPI* t_RtlSetProcessIsCritical)(
     BOOLEAN bNeedScb    // need system critical breaks
     );    	
 
+typedef NTSTATUS(NTAPI* t_NtDelayExecution)(
+    BOOLEAN              Alertable,
+    PLARGE_INTEGER       DelayInterval
+    );
 

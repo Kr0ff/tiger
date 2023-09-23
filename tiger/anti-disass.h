@@ -1,8 +1,6 @@
-#include <windows.h>
-
-VOID AntiDisassmConstantCondition();
-VOID AntiDisassmAsmJmpSameTarget();
-VOID AntiDisassmImpossibleDiasassm();
-VOID AntiDisassmFunctionPointer();
-VOID AntiDisassmReturnPointerAbuse();
-VOID AntiDisassmSEHMisuse();
+void AntiDisassmConstantCondition();
+void AntiDisassmAsmJmpSameTarget();
+void AntiDisassmImpossibleDiasassm();
+void AntiDisassmFunctionPointer();
+void AntiDisassmReturnPointerAbuse();
+void AntiDisassmSEHMisuse();

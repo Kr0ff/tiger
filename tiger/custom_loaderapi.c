@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "custom_loaderapi.h"
 #include "string_hashing.h"
 #include "structs.h"
@@ -94,7 +92,6 @@ FARPROC Custom_GetProcAddress(HMODULE hModule, DWORD64 ApiHashName) {
 			WORD ordinal = AddressOfNameOrdinals[index];
 			PDWORD targetFunctionAddr = (PDWORD)((unsigned char*)hModuleBase + AddressOfFunctions[index]);
 			pFunctionAddress = targetFunctionAddr;
-			//printf("\t + FOUND:  %s -> %p\n", FunctionName, pFunctionAddress);
 		}
 	}
 

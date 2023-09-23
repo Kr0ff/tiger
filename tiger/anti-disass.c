@@ -1,4 +1,5 @@
 ﻿#include "anti-disass.h"
+#include "structs.h"
 
 extern void __AsmConstantCondition();
 extern void __AsmJmpSameTarget();
@@ -14,7 +15,7 @@ extern void __AsmSEHMisuse();
 	This technique is composed of a single conditional jump instruction placed where the condition
 	will always be the same.
 */
-VOID AntiDisassmConstantCondition()
+void AntiDisassmConstantCondition()
 {
 	__AsmConstantCondition();
 }
@@ -24,7 +25,7 @@ VOID AntiDisassmConstantCondition()
 	conditional jump instructions that both point to the same target. For example,
 	if a jz XYZ is followed by jnz XYZ, the location XYZ will always be jumped to
 */
-VOID AntiDisassmAsmJmpSameTarget()
+void AntiDisassmAsmJmpSameTarget()
 {
 	__AsmJmpSameTarget();
 }
@@ -37,7 +38,7 @@ VOID AntiDisassmAsmJmpSameTarget()
 	a multibyte instruction.
 
 */
-VOID AntiDisassmImpossibleDiasassm()
+void AntiDisassmImpossibleDiasassm()
 {
 	__AsmImpossibleDisassm();
 }
@@ -47,7 +48,7 @@ VOID AntiDisassmImpossibleDiasassm()
 	If function pointers are used in handwritten assembly or crafted in a nonstandard way
 	in source code, the results can be difficult to reverse engineer without dynamic analysis.
 */
-VOID AntiDisassmFunctionPointer()
+void AntiDisassmFunctionPointer()
 {
 
 	DWORD Number = 2;
@@ -59,13 +60,13 @@ VOID AntiDisassmFunctionPointer()
 	The most obvious result of this technique is that the disassembler doesn't show any
 	code cross - reference to the target being jumped to.
 */
-VOID AntiDisassmReturnPointerAbuse()
+void AntiDisassmReturnPointerAbuse()
 {
 	__AsmReturnPointerAbuse(666);
 }
 
 #ifndef _WIN64
-VOID AntiDisassmSEHMisuse()
+void AntiDisassmSEHMisuse()
 {
 	__AsmSEHMisuse();
 }
