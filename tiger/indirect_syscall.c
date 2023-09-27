@@ -1,19 +1,12 @@
 #include "indirect_syscall.h"
+#include "debug.h"
 
 #define RANGE 255
 #define UP 32
 #define DOWN -32
 
-extern VOID SetSSn(DWORD dwSSN, PVOID pRandSyscallAddress);
-extern LONG RunSyscall();
-
-VOID _SetSSn(DWORD dwSSN, PVOID pRandSyscallAddress) {
-	SetSSn(dwSSN, pRandSyscallAddress);
-}
-
-LONG _RunSyscall() {
-	RunSyscall();
-}
+VOID SetSSN(DWORD dwSSN, PVOID pRandSyscallAddress);
+LONG RunSyscall();
 
 NTDLL_STRUCT _G_NtdllConf;
 
@@ -148,7 +141,6 @@ BOOL ObtainSyscall(IN DWORD64 dwSysHash, OUT PNTSYSCALL pNtSys) {
 	ULONG_PTR uFuncAddress = (ULONG_PTR)pNtSys->pSyscallAddress + 0xFF;
 
 	// getting the 'syscall' instruction of another syscall function
-	
 	DWORD z = 0, x = 1;
 	for (z, x; z <= RANGE; z++, x++) {
 		if (*((PBYTE)uFuncAddress + z) == 0x0F && *((PBYTE)uFuncAddress + x) == 0x05) {
@@ -163,6 +155,7 @@ BOOL ObtainSyscall(IN DWORD64 dwSysHash, OUT PNTSYSCALL pNtSys) {
 		pNtSys->dwSyscallHash != NULL &&
 		pNtSys->pRandSyscallAddress != NULL) 
 	{
+		//PRINTA("[+] All elements of pNtSys struct populated !\n");
 		return TRUE;
 	}
 	else {

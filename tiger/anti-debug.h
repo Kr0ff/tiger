@@ -2,4 +2,4 @@
 
 BOOL AntiDebugPEBCheck();
 BOOL NtGlobalFlagCheck(VOID);
-BOOL DelayExecution(FLOAT ftMinute);
+BOOL DelayExecution(LONGLONG llNanoseconds);

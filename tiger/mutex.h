@@ -1,4 +1,6 @@
 #include "structs.h"
 
-HANDLE _CreateMutex(LPCWSTR mutexName);
-BOOL _DestroyMutex(HANDLE hMutex);
+BOOL InitialiaseNTSyscalls();
+
+HANDLE _CreateMutant(WCHAR* wMutantName);
+BOOL _DestroyMutant(HANDLE hMutant);

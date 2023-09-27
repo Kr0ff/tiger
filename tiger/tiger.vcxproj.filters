@@ -63,11 +63,14 @@
     <ClCompile Include="mutex.c">
       <Filter>Source Files\mutex</Filter>
     </ClCompile>
-    <ClCompile Include="IAT_Obfuscation.h">
-      <Filter>Header Files\anti-analysis</Filter>
+    <ClCompile Include="xor.h">
+      <Filter>Header Files\encryption</Filter>
     </ClCompile>
-    <ClCompile Include="IAT_Obfuscation.c">
-      <Filter>Source Files\anti-analysis</Filter>
+    <ClCompile Include="xor.c">
+      <Filter>Source Files\encryption</Filter>
+    </ClCompile>
+    <ClCompile Include="helper_functions.c">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,7 +127,7 @@
     <MASM Include="anti-disass-x64.asm">
       <Filter>Source Files\anti-analysis\anti-disass-asm</Filter>
     </MASM>
-    <MASM Include="indirech_syscall.asm">
+    <MASM Include="indir_syscall.asm">
       <Filter>Source Files</Filter>
     </MASM>
   </ItemGroup>

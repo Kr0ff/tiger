@@ -3,7 +3,7 @@
 	qSyscallInsAdress QWORD 0h
 .code 
 	
-	SetSSn PROC
+	SetSSN PROC
 			xor eax, eax                          ; eax = 0
 			mov wSystemCall, eax                  ; wSystemCall = 0
 			mov qSyscallInsAdress, rax            ; qSyscallInsAdress = 0
@@ -12,7 +12,7 @@
 			mov r8, rdx                           ; r8 = AddressOfASyscallInst
 			mov qSyscallInsAdress, r8             ; qSyscallInsAdress = r8 = AddressOfASyscallInst
 			ret
-	SetSSn ENDP
+	SetSSN ENDP
 
 
 ; SetSSn should look like this :

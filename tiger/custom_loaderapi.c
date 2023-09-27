@@ -1,6 +1,7 @@
 #include "custom_loaderapi.h"
 #include "string_hashing.h"
 #include "structs.h"
+#include "debug.h"
 
 #define ERR -0x1
 #define SUCCESS 0x0
@@ -52,7 +53,7 @@ HMODULE Custom_GetModuleHandle(DWORD64 ModuleHash) {
 // so if a function is forwarded, it will need manual debugging
 // to find where the function is actually located 
 //
-FARPROC Custom_GetProcAddress(HMODULE hModule, DWORD64 ApiHashName) {
+FARPROC Custom_GetProcAddress(HMODULE hModule, DWORD64 ApiHash) {
 
 	// Declare storing variables
 	FARPROC pFunctionAddress = NULL;
@@ -85,13 +86,13 @@ FARPROC Custom_GetProcAddress(HMODULE hModule, DWORD64 ApiHashName) {
 	// Loop through all exported function
 	DWORD index = 0;
 	for (index; index < numberOfNames; index++) {
-		char* FunctionName = (char*)((unsigned char*)hModuleBase + AddressOfNames[index]);
+		PCHAR FunctionName = (PCHAR)((PBYTE)hModuleBase + AddressOfNames[index]);
+		PVOID targetFunctionAddress = (PBYTE)hModuleBase + AddressOfFunctions[AddressOfNameOrdinals[index]];
 		
 		// Match the hash with the function we're looking for
-		if (CRC32B(FunctionName) == ApiHashName) {
-			WORD ordinal = AddressOfNameOrdinals[index];
-			PDWORD targetFunctionAddr = (PDWORD)((unsigned char*)hModuleBase + AddressOfFunctions[index]);
-			pFunctionAddress = targetFunctionAddr;
+		if (CRC32B((PBYTE)FunctionName) == ApiHash) {
+			pFunctionAddress = targetFunctionAddress;
+			//PRINTA("FOUND: %s -> 0x%p\n", FunctionName, pFunctionAddress);
 		}
 	}
 

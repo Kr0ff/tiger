@@ -2,11 +2,16 @@
 #include "string_hashing.h"
 #include "typedefs.h"
 
+extern VOID SetSSN(DWORD dwSSN, PVOID pRandSyscallAddress);
+extern LONG RunSyscall();
+
+#define SET_SYSCALL(pNtSys) (SetSSN((DWORD)pNtSys.dwSSN,(PVOID)pNtSys.pRandSyscallAddress))
+
 typedef struct _NTSYSCALL {
-    DWORD dwSSN;                    // syscall number
-    DWORD64 dwSyscallHash;           // syscall hash value
-    PVOID pSyscallAddress;          // syscall address
-    PVOID pRandSyscallAddress;      // address of a random 'syscall' instruction in ntdll  
+    DWORD       dwSSN;                    // syscall number
+    DWORD64     dwSyscallHash;          // syscall hash value
+    PVOID       pSyscallAddress;          // syscall address
+    PVOID       pRandSyscallAddress;      // address of a random 'syscall' instruction in ntdll  
 
 } NTSYSCALL, *PNTSYSCALL;
 
@@ -27,13 +32,12 @@ typedef struct _NTAPI_FUNC
     NTSYSCALL	NtCreateThreadEx;
     NTSYSCALL	NtWaitForSingleObject;
     NTSYSCALL   NtDelayExecution;
+    NTSYSCALL   NtCreateMutant;
+    NTSYSCALL   NtOpenMutant;
+    NTSYSCALL   NtReleaseMutant;
+    NTSYSCALL   NtClose;
 
 }NTAPI_FUNC, * PNTAPI_FUNC;
-
-VOID _SetSSn(DWORD dwSSN, PVOID pRandSyscallAddress);
-LONG _RunSyscall();
-
-#define SET_SYSCALL(pNtSys) (_SetSSn((DWORD)pNtSys.dwSSN,(PVOID)pNtSys.pRandSyscallAddress))
 
 BOOL ObtainSyscall(IN DWORD64 dwSysHash, OUT PNTSYSCALL pNtSys);
 BOOL InitNtdllStruct();

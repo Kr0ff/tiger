@@ -1,4 +1,5 @@
 #pragma once
+#include <stdio.h>
 #include <windows.h>
 
 #define NT_SUCCESS(Status) (((NTSTATUS)(Status)) >= 0)
@@ -6,12 +7,6 @@
 /*=====================================================================
 							STRUCTURES
 ======================================================================*/
-
-typedef struct ustring {
-	SIZE_T Length;
-	SIZE_T MaximumLength;
-	PUCHAR Buffer;
-} data, key;
 
 typedef struct _LSA_UNICODE_STRING {
 	USHORT Length;

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tiger", "tiger\tiger.vcxproj", "{A57491FB-D17E-4CC0-8ED9-90941322A55C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tiger_crypters", "tiger_crypters\tiger_crypters.vcxproj", "{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -27,6 +29,18 @@ Global
 		{A57491FB-D17E-4CC0-8ED9-90941322A55C}.Release|x64.Build.0 = Release|x64
 		{A57491FB-D17E-4CC0-8ED9-90941322A55C}.Release|x86.ActiveCfg = Release|Win32
 		{A57491FB-D17E-4CC0-8ED9-90941322A55C}.Release|x86.Build.0 = Release|Win32
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.Debug|x64.ActiveCfg = Debug|x64
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.Debug|x64.Build.0 = Debug|x64
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.Debug|x86.ActiveCfg = Debug|Win32
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.Debug|x86.Build.0 = Debug|Win32
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.FinalRelease|x64.ActiveCfg = Release|x64
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.FinalRelease|x64.Build.0 = Release|x64
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.FinalRelease|x86.ActiveCfg = Release|Win32
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.FinalRelease|x86.Build.0 = Release|Win32
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.Release|x64.ActiveCfg = Release|x64
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.Release|x64.Build.0 = Release|x64
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.Release|x86.ActiveCfg = Release|Win32
+		{DECD3C3D-EEFF-4C1D-9CF6-EFC0A98714EC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

