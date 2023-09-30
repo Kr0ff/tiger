@@ -1,9 +1,9 @@
 #include "indirect_syscall.h"
 #include "debug.h"
 
-#define RANGE 255
-#define UP 32
-#define DOWN -32
+#define RANGE 500
+#define UP -32
+#define DOWN 32
 
 VOID SetSSN(DWORD dwSSN, PVOID pRandSyscallAddress);
 LONG RunSyscall();

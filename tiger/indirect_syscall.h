@@ -36,6 +36,9 @@ typedef struct _NTAPI_FUNC
     NTSYSCALL   NtOpenMutant;
     NTSYSCALL   NtReleaseMutant;
     NTSYSCALL   NtClose;
+    NTSYSCALL   NtGetContextThread;
+    NTSYSCALL   NtSetContextThread;
+
 
 }NTAPI_FUNC, * PNTAPI_FUNC;
 

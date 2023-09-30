@@ -37,6 +37,18 @@
     <Filter Include="Source Files\mutex">
       <UniqueIdentifier>{34ab1ee7-f7a9-4a93-bb52-1dbf4675e5a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\hooks">
+      <UniqueIdentifier>{186d90b7-ea12-45c0-a7a4-690a5cbace7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\hooks">
+      <UniqueIdentifier>{f0e92887-58b4-44db-a4ea-3660b57e6c0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\IAT">
+      <UniqueIdentifier>{fb5e50ae-704c-40cd-a5f1-72b5dbcd830f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IAT">
+      <UniqueIdentifier>{a2565f94-7caa-4f36-a8eb-7f894dbf6f6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -71,6 +83,18 @@
     </ClCompile>
     <ClCompile Include="helper_functions.c">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="exception_handler.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hwbp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hook_functions.c">
+      <Filter>Source Files\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="iat_camoflage.c">
+      <Filter>Source Files\IAT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +145,18 @@
     </ClInclude>
     <ClInclude Include="intrinsic.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="exception_handler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hwbp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hook_functions.h">
+      <Filter>Header Files\hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="iat_camoflage.h">
+      <Filter>Header Files\IAT</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,6 @@
 #include "indirect_syscall.h"
 
 // https://github.com/LordNoteworthy/al-khaser
-#define DEBUG
 
 BOOL AntiDebugPEBCheck() {
 	// Obtain the PEB offset

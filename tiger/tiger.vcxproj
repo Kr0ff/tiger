@@ -102,6 +102,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='FinalRelease|x64'">
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -163,15 +166,25 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <SupportJustMyCode>None</SupportJustMyCode>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>false</EnableCOMDATFolding>
+      <OptimizeReferences>false</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AssemblyDebug>false</AssemblyDebug>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <EntryPointSymbol>main</EntryPointSymbol>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='FinalRelease|x64'">
@@ -203,7 +216,11 @@
     <ClCompile Include="anti-debug.c" />
     <ClCompile Include="anti-disass.c" />
     <ClCompile Include="custom_loaderapi.c" />
+    <ClCompile Include="exception_handler.c" />
     <ClCompile Include="helper_functions.c" />
+    <ClCompile Include="hook_functions.c" />
+    <ClCompile Include="hwbp.c" />
+    <ClCompile Include="iat_camoflage.c" />
     <ClCompile Include="indirect_syscall.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="mutex.c" />
@@ -219,7 +236,11 @@
     <ClInclude Include="anti-vm.h" />
     <ClInclude Include="custom_loaderapi.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="exception_handler.h" />
     <ClInclude Include="helper_functions.h" />
+    <ClInclude Include="hook_functions.h" />
+    <ClInclude Include="hwbp.h" />
+    <ClInclude Include="iat_camoflage.h" />
     <ClInclude Include="indirect_syscall.h" />
     <ClInclude Include="intrinsic.h" />
     <ClInclude Include="mutex.h" />

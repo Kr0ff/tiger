@@ -3,6 +3,10 @@
 #define FALSE 0
 #define TRUE 1
 
+#define DEBUG
+
+#ifdef DEBUG
+
 // wprintf replacement
 #define PRINTW( STR, ... )                                                                  \
     if (1) {                                                                                \
@@ -25,3 +29,4 @@
             HeapFree( GetProcessHeap(), 0, buf );                                           \
         }                                                                                   \
     } 
+#endif

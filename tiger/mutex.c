@@ -7,8 +7,6 @@
 #include "debug.h"
 #include "ntstatus.h"
 
-#define DEBUG
-
 NTAPI_FUNC _G_NTFUNC;
 
 BOOL InitialiaseNTSyscalls() {
