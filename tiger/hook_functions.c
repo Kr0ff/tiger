@@ -26,15 +26,6 @@ BOOL set_scaddress(HANDLE hProcess, PVOID pScAddress, SIZE_T sSize, ULONG dwProt
 	_G_sSize = sSize;
 	_G_dwProtection = dwProtection;
 
-#ifdef DEBUG
-	PRINTA("INFO:\n\
-\t- _G_hProcess -> 0x%p\n\
-\t- _G_pScAddress -> 0x%p\n\
-\t- _G_sSize -> %ld\n\
-\t- _G_dwProtection -> %d\n", _G_hProcess, _G_pScAddress, _G_sSize, _G_dwProtection);
-	//system("pause");
-#endif
-
 	return TRUE;
 }
 

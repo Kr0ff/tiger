@@ -39,7 +39,6 @@ typedef struct _NTAPI_FUNC
     NTSYSCALL   NtGetContextThread;
     NTSYSCALL   NtSetContextThread;
 
-
 }NTAPI_FUNC, * PNTAPI_FUNC;
 
 BOOL ObtainSyscall(IN DWORD64 dwSysHash, OUT PNTSYSCALL pNtSys);

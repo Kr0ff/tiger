@@ -216,6 +216,7 @@
     <ClCompile Include="anti-debug.c" />
     <ClCompile Include="anti-disass.c" />
     <ClCompile Include="custom_loaderapi.c" />
+    <ClCompile Include="etw.c" />
     <ClCompile Include="exception_handler.c" />
     <ClCompile Include="helper_functions.c" />
     <ClCompile Include="hook_functions.c" />
@@ -232,10 +233,9 @@
   <ItemGroup>
     <ClInclude Include="anti-debug.h" />
     <ClInclude Include="anti-disass.h" />
-    <ClInclude Include="anti-sandbox.h" />
-    <ClInclude Include="anti-vm.h" />
     <ClInclude Include="custom_loaderapi.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="etw.h" />
     <ClInclude Include="exception_handler.h" />
     <ClInclude Include="helper_functions.h" />
     <ClInclude Include="hook_functions.h" />

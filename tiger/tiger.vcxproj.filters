@@ -49,6 +49,12 @@
     <Filter Include="Source Files\IAT">
       <UniqueIdentifier>{a2565f94-7caa-4f36-a8eb-7f894dbf6f6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ETW">
+      <UniqueIdentifier>{68da95b5-2fd5-4ef0-b82f-332969fb8109}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ETW">
+      <UniqueIdentifier>{f938596b-067a-4366-82e6-80e5ce370c54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -96,6 +102,9 @@
     <ClCompile Include="iat_camoflage.c">
       <Filter>Source Files\IAT</Filter>
     </ClCompile>
+    <ClCompile Include="etw.c">
+      <Filter>Source Files\ETW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helper_functions.h">
@@ -120,12 +129,6 @@
       <Filter>Header Files\encryption</Filter>
     </ClInclude>
     <ClInclude Include="anti-debug.h">
-      <Filter>Header Files\anti-analysis</Filter>
-    </ClInclude>
-    <ClInclude Include="anti-vm.h">
-      <Filter>Header Files\anti-analysis</Filter>
-    </ClInclude>
-    <ClInclude Include="anti-sandbox.h">
       <Filter>Header Files\anti-analysis</Filter>
     </ClInclude>
     <ClInclude Include="anti-disass.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="iat_camoflage.h">
       <Filter>Header Files\IAT</Filter>
+    </ClInclude>
+    <ClInclude Include="etw.h">
+      <Filter>Header Files\ETW</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

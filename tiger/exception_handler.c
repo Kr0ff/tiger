@@ -16,12 +16,6 @@ int set_handlerinfo(DWORD64 OriginalFunctionRip, DWORD64 HookFunctionRip) {
 	_G_OriginalFunctionRip	= OriginalFunctionRip;
 	_G_HookFunctionRip = HookFunctionRip;
 
-#ifdef DEBUG
-	PRINTA("\n\
-\t- _G_OriginalFunctionRip	->	%p\n\
-\t- _G_HookFunctionRip		->	%p\n", _G_OriginalFunctionRip, _G_HookFunctionRip);
-#endif
-
 	return 0;
 }
 
