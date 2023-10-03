@@ -137,9 +137,6 @@
     <ClInclude Include="anti-analysis\anti-disass.h">
       <Filter>Header Files\anti-analysis</Filter>
     </ClInclude>
-    <ClInclude Include="debug\debug.h">
-      <Filter>Header Files\debug</Filter>
-    </ClInclude>
     <ClInclude Include="encryption\rc4.h">
       <Filter>Header Files\encryption</Filter>
     </ClInclude>
@@ -163,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="mutex\mutex.h">
       <Filter>Header Files\mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="debug\debug.h">
+      <Filter>Header Files\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

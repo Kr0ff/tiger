@@ -1,5 +1,7 @@
 #pragma once
 
+#define WAITTIMER -150000000
+
 // Module hashes need to be in UNICODE format so adjust the hashes tool
 // Hashes of modules
 #define KERNEL32_HASH   0xffffffff330c7795

@@ -9,7 +9,7 @@ DWORD64 _G_OriginalFunctionRip;
 DWORD64 _G_HookFunctionRip;
 
 int set_handlerinfo(DWORD64 OriginalFunctionRip, DWORD64 HookFunctionRip) {
-	if (OriginalFunctionRip == NULL || HookFunctionRip == NULL) {
+	if (OriginalFunctionRip == 0 || HookFunctionRip == 0) {
 		return -1;
 	}
 	

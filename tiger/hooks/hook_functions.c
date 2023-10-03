@@ -38,7 +38,7 @@ int __stdcall hook_MessageBox(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT u
 
 	NTSTATUS STATUS = NULL;
 	LARGE_INTEGER DelayInterval = { 0 };
-	DelayInterval.QuadPart = -150000000;
+	DelayInterval.QuadPart = WAITTIMER;
 
 	// This call was already obtained so we can just call it 
 	// Call NtProtectVirtualMemory and set PAGE_NOACCESS to the shellcode memory block

@@ -233,11 +233,7 @@
     <ClInclude Include="anti-analysis\anti-debug.h" />
     <ClInclude Include="anti-analysis\anti-disass.h" />
     <ClInclude Include="custom_loaderapi.h" />
-    <ClInclude Include="debug\debug.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-      <DeploymentContent>true</DeploymentContent>
-    </ClInclude>
+    <ClInclude Include="debug\debug.h" />
     <ClInclude Include="encryption\rc4.h" />
     <ClInclude Include="encryption\xor.h" />
     <ClInclude Include="ETW\etw.h" />
