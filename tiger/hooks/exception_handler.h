@@ -1,4 +1,4 @@
-#include "structs.h"
+#include "../structs.h"
 
 #define SET_HANDLERINFO(OriginalFunctionRip, HookFunctionRip) (set_handlerinfo(OriginalFunctionRip, HookFunctionRip))
 

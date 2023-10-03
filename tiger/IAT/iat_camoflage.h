@@ -1,4 +1,4 @@
-#include "structs.h"
+#include "../structs.h"
 
 // Camoflage IAT with benign APIs
 BOOL camoflage_IAT();

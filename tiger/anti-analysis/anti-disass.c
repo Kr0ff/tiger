@@ -1,5 +1,5 @@
 ﻿#include "anti-disass.h"
-#include "structs.h"
+#include "../structs.h"
 
 extern void __AsmConstantCondition();
 extern void __AsmJmpSameTarget();

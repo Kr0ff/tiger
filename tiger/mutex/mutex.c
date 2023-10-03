@@ -1,11 +1,11 @@
 #include "mutex.h"
-#include "indirect_syscall.h"
-#include "custom_loaderapi.h"
-#include "string_hashing.h"
-#include "typedefs.h"
-
-#include "debug.h"
 #include "ntstatus.h"
+#include "../indirect_syscall.h"
+#include "../custom_loaderapi.h"
+#include "../string_hashing.h"
+#include "../typedefs.h"
+
+#include "../debug/debug.h"
 
 NTAPI_FUNC _G_NTFUNC;
 
@@ -99,7 +99,7 @@ HANDLE _CreateMutant(WCHAR* wMutantName) {
 		return -1;
 	}
 #ifdef DEBUG
-	PRINTA("\t - Mutant Handle -> %#p\n", hMutant);
+	PRINTA("\t - Mutant Handle -> 0x%p\n", hMutant);
 #endif
 
 	if (hMutant == NULL) {

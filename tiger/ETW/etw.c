@@ -1,10 +1,10 @@
 #include "etw.h"
-#include "typedefs.h"
-#include "xor.h"
-#include "custom_loaderapi.h"
-#include "indirect_syscall.h"
-#include "helper_functions.h"
-#include "debug.h"
+#include "../typedefs.h"
+#include "../encryption/xor.h"
+#include "../custom_loaderapi.h"
+#include "../indirect_syscall.h"
+#include "../helper_functions.h"
+#include "../debug/debug.h"
 
 // Todo: 
 // Needs to be converted to use indirect syscalls

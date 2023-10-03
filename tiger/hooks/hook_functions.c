@@ -1,9 +1,9 @@
-#include "indirect_syscall.h"
+#include "../indirect_syscall.h"
+#include "../typedefs.h"
+#include "../debug/debug.h"
 #include "hook_functions.h"
-#include "typedefs.h"
 #include "hwbp.h"
 
-#include "debug.h"
 
 PVOID	_G_pScAddress;
 HANDLE	_G_hProcess;

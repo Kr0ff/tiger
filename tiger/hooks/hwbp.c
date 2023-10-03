@@ -1,8 +1,8 @@
 #include "hwbp.h"
 #include "exception_handler.h"
-#include "indirect_syscall.h"
+#include "../indirect_syscall.h"
 
-#include "debug.h"
+#include "../debug/debug.h"
 
 NTAPI_FUNC _G_NTFUNC;
 

@@ -1,4 +1,4 @@
-#include <windows.h>
+#include "structs.h"
 
 #define CRC32B(str) crc32b(str)
 #define CRC32H(message) crc32h(message)

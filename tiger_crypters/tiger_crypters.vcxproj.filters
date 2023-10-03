@@ -27,12 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="rc4.h">
-      <Filter>Header Files\rc4</Filter>
-    </ClInclude>
-    <ClInclude Include="xor.h">
-      <Filter>Header Files\xor</Filter>
-    </ClInclude>
     <ClInclude Include="ntstatus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -42,16 +36,22 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="encryption\rc4.h">
+      <Filter>Header Files\rc4</Filter>
+    </ClInclude>
+    <ClInclude Include="encryption\xor.h">
+      <Filter>Header Files\xor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="xor.cpp">
-      <Filter>Source Files\xor</Filter>
-    </ClCompile>
-    <ClCompile Include="rc4.cpp">
-      <Filter>Source Files\rc4</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="encryption\rc4.cpp">
+      <Filter>Source Files\rc4</Filter>
+    </ClCompile>
+    <ClCompile Include="encryption\xor.cpp">
+      <Filter>Source Files\xor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

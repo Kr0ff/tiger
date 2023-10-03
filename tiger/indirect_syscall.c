@@ -1,5 +1,5 @@
 #include "indirect_syscall.h"
-#include "debug.h"
+#include "debug/debug.h"
 
 #define RANGE 500
 #define UP -32

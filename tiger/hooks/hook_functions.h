@@ -1,4 +1,4 @@
-#include "structs.h"
+#include "../structs.h"
 
 #define SET_SCADDRESS(hProcess, pScAddress, sSize, dwProtection) (set_scaddress(hProcess, pScAddress, sSize, dwProtection))
 
