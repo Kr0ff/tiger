@@ -69,14 +69,14 @@ BOOL DisableETW(DWORD64 EtwFunctionHash) {
 	
 	if (VirtualProtect(pEtw, patchSize, dwOld, &dwOld) == 0) {
 #ifdef DEBUG
-		PRINTA("[!] Failed changing protection -> RW (%d) !\n", GetLastError());
+		PRINTA("[!] Failed to restore protection (%d) !\n", GetLastError());
 #endif
 		return FALSE;
 	}
 	else {
 		res = TRUE;
 #ifdef DEBUG
-		PRINTA("[+] Successfully changed protection -> RW !\n");
+		PRINTA("[+] Successfully restored protection !\n");
 #endif
 	}
 

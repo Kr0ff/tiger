@@ -9,14 +9,3 @@ void xor_cryptA(unsigned char str[], unsigned char key, DWORD _size) {
 
 	return;
 }
-
-void xor_cryptW(WCHAR wstr[], WCHAR key) {
-	DWORD sizeWStr = sizeof(wstr);
-	int i = 0;
-	
-	for (i; i < sizeWStr; i++) {
-		wstr[i] = wstr[i] ^ key;
-	}
-
-	return;
-}
