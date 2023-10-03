@@ -1,5 +1,5 @@
-#include "rc4.h"
-#include "xor.h"
+#include "encryption/rc4.h"
+#include "encryption/xor.h"
 
 int wmain(int argc, wchar_t* argv[]) {
 

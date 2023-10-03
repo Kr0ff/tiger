@@ -1,7 +1,7 @@
 #include "anti-debug.h"
-#include "debug.h"
-#include "custom_loaderapi.h"
-#include "indirect_syscall.h"
+#include "../debug/debug.h"
+#include "../custom_loaderapi.h"
+#include "../indirect_syscall.h"
 
 // https://github.com/LordNoteworthy/al-khaser
 

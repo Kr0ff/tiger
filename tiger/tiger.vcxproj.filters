@@ -66,52 +66,46 @@
     <ClCompile Include="string_hashing.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rc4.c">
-      <Filter>Source Files\encryption</Filter>
-    </ClCompile>
-    <ClCompile Include="anti-disass.c">
-      <Filter>Source Files\anti-analysis</Filter>
-    </ClCompile>
-    <ClCompile Include="anti-debug.c">
-      <Filter>Source Files\anti-analysis</Filter>
-    </ClCompile>
     <ClCompile Include="indirect_syscall.c">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mutex.c">
-      <Filter>Source Files\mutex</Filter>
-    </ClCompile>
-    <ClCompile Include="xor.h">
-      <Filter>Header Files\encryption</Filter>
-    </ClCompile>
-    <ClCompile Include="xor.c">
-      <Filter>Source Files\encryption</Filter>
     </ClCompile>
     <ClCompile Include="helper_functions.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="exception_handler.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="anti-analysis\anti-debug.c">
+      <Filter>Source Files\anti-analysis</Filter>
     </ClCompile>
-    <ClCompile Include="hwbp.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="anti-analysis\anti-disass.c">
+      <Filter>Source Files\anti-analysis</Filter>
     </ClCompile>
-    <ClCompile Include="hook_functions.c">
+    <ClCompile Include="encryption\rc4.c">
+      <Filter>Source Files\encryption</Filter>
+    </ClCompile>
+    <ClCompile Include="encryption\xor.c">
+      <Filter>Source Files\encryption</Filter>
+    </ClCompile>
+    <ClCompile Include="ETW\etw.c">
+      <Filter>Source Files\ETW</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\exception_handler.c">
       <Filter>Source Files\hooks</Filter>
     </ClCompile>
-    <ClCompile Include="iat_camoflage.c">
+    <ClCompile Include="hooks\hook_functions.c">
+      <Filter>Source Files\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\hwbp.c">
+      <Filter>Source Files\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="IAT\iat_camoflage.c">
       <Filter>Source Files\IAT</Filter>
     </ClCompile>
-    <ClCompile Include="etw.c">
-      <Filter>Source Files\ETW</Filter>
+    <ClCompile Include="mutex\mutex.c">
+      <Filter>Source Files\mutex</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helper_functions.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="debug.h">
-      <Filter>Header Files\debug</Filter>
     </ClInclude>
     <ClInclude Include="custom_loaderapi.h">
       <Filter>Header Files</Filter>
@@ -125,23 +119,11 @@
     <ClInclude Include="string_hashing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rc4.h">
-      <Filter>Header Files\encryption</Filter>
-    </ClInclude>
-    <ClInclude Include="anti-debug.h">
-      <Filter>Header Files\anti-analysis</Filter>
-    </ClInclude>
-    <ClInclude Include="anti-disass.h">
-      <Filter>Header Files\anti-analysis</Filter>
-    </ClInclude>
     <ClInclude Include="indirect_syscall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="typedefs.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="mutex.h">
-      <Filter>Header Files\mutex</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
@@ -149,28 +131,46 @@
     <ClInclude Include="intrinsic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="exception_handler.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="anti-analysis\anti-debug.h">
+      <Filter>Header Files\anti-analysis</Filter>
     </ClInclude>
-    <ClInclude Include="hwbp.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="anti-analysis\anti-disass.h">
+      <Filter>Header Files\anti-analysis</Filter>
     </ClInclude>
-    <ClInclude Include="hook_functions.h">
+    <ClInclude Include="debug\debug.h">
+      <Filter>Header Files\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="encryption\rc4.h">
+      <Filter>Header Files\encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="encryption\xor.h">
+      <Filter>Header Files\encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="ETW\etw.h">
+      <Filter>Header Files\ETW</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\exception_handler.h">
       <Filter>Header Files\hooks</Filter>
     </ClInclude>
-    <ClInclude Include="iat_camoflage.h">
+    <ClInclude Include="hooks\hook_functions.h">
+      <Filter>Header Files\hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\hwbp.h">
+      <Filter>Header Files\hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="IAT\iat_camoflage.h">
       <Filter>Header Files\IAT</Filter>
     </ClInclude>
-    <ClInclude Include="etw.h">
-      <Filter>Header Files\ETW</Filter>
+    <ClInclude Include="mutex\mutex.h">
+      <Filter>Header Files\mutex</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="anti-disass-x64.asm">
-      <Filter>Source Files\anti-analysis\anti-disass-asm</Filter>
-    </MASM>
     <MASM Include="indir_syscall.asm">
       <Filter>Source Files</Filter>
+    </MASM>
+    <MASM Include="anti-analysis\anti-disass-asm\anti-disass-x64.asm">
+      <Filter>Source Files\anti-analysis\anti-disass-asm</Filter>
     </MASM>
   </ItemGroup>
   <ItemGroup>

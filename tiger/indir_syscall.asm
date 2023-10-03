@@ -14,15 +14,6 @@
 			ret
 	SetSSN ENDP
 
-
-; SetSSn should look like this :
-	;SetSSn PROC
-	;	mov wSystemCall, 000h
-	;	mov wSystemCall, ecx
-	;	ret
-	;SetSSn ENDP
-
-
 	RunSyscall PROC
 			xor r10, r10                          ; r10 = 0
 			mov rax, rcx                          ; rax = rcx
@@ -38,15 +29,5 @@
 			mov qSyscallInsAdress, r10          ; qSyscallInsAdress = 0
 			ret
 	RunSyscall ENDP
-
-
-
-; RunSyscall should look like this :
-	;RunSyscall PROC
-	;	mov r10, rcx
-	;	mov eax, wSystemCall
-	;	syscall
-	;	ret
-	;RunSyscall ENDP
 
 end

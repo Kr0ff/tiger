@@ -1,9 +1,9 @@
 #include "exception_handler.h"
 
-#include "typedefs.h"
-#include "custom_loaderapi.h"
+#include "../typedefs.h"
+#include "../custom_loaderapi.h"
 
-#include "debug.h"
+#include "../debug/debug.h"
 
 DWORD64 _G_OriginalFunctionRip;
 DWORD64 _G_HookFunctionRip;
@@ -40,7 +40,7 @@ LONG WINAPI e_handler(EXCEPTION_POINTERS* ExceptionInfo) {
 	if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_SINGLE_STEP) {
 		if (ExceptionInfo->ContextRecord->Rip == _G_OriginalFunctionRip) {
 #ifdef DEBUG
-			PRINTA("[+] Exception caught -> Hit ( %#p )\n", ExceptionInfo->ContextRecord->Rip);
+			PRINTA("[+] Exception caught -> Hit ( 0x%p )\n", ExceptionInfo->ContextRecord->Rip);
 #endif
 
 			// Set EFlags to resume execution

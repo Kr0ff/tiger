@@ -1,7 +1,7 @@
 #include "custom_loaderapi.h"
 #include "string_hashing.h"
 #include "structs.h"
-#include "debug.h"
+#include "debug/debug.h"
 
 #define ERR -0x1
 #define SUCCESS 0x0

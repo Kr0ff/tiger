@@ -127,16 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="encryption\rc4.h" />
+    <ClInclude Include="encryption\xor.h" />
     <ClInclude Include="ntstatus.h" />
-    <ClInclude Include="rc4.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="structs.h" />
-    <ClInclude Include="xor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="encryption\rc4.cpp" />
+    <ClCompile Include="encryption\xor.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="rc4.cpp" />
-    <ClCompile Include="xor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="tiger_crypters.rc" />
