@@ -39,7 +39,7 @@ BOOL HWBP(HANDLE hThread, DWORD64 AddrFunctionToHook, BOOL SetHWBP) {
 
 	case FALSE:
 #ifdef DEBUG
-		PRINTA("[-] Unset HWBP !\n");
+		PRINTA("[!] Unset HWBP !\n");
 #endif
 
 		ctx.Dr0 = NULL;			// Clear DR0

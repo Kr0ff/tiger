@@ -1,6 +1,6 @@
 #pragma once
 
-#define WAITTIMER -150000000
+#define WAITTIMER -10000000
 
 // Module hashes need to be in UNICODE format so adjust the hashes tool
 // Hashes of modules

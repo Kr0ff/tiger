@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\debug">
-      <UniqueIdentifier>{7bf18ddf-89c3-47b5-b0bc-8430ffb4c804}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\encryption">
       <UniqueIdentifier>{15fb43aa-ea22-4ce0-9404-7612faad8594}</UniqueIdentifier>
     </Filter>
@@ -54,6 +51,9 @@
     </Filter>
     <Filter Include="Source Files\ETW">
       <UniqueIdentifier>{f938596b-067a-4366-82e6-80e5ce370c54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\debug">
+      <UniqueIdentifier>{3c03559c-3776-4fed-9ed3-9edf92afce0e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

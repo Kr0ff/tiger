@@ -233,7 +233,9 @@
     <ClInclude Include="anti-analysis\anti-debug.h" />
     <ClInclude Include="anti-analysis\anti-disass.h" />
     <ClInclude Include="custom_loaderapi.h" />
-    <ClInclude Include="debug\debug.h" />
+    <ClInclude Include="debug\debug.h">
+      <DeploymentContent>true</DeploymentContent>
+    </ClInclude>
     <ClInclude Include="encryption\rc4.h" />
     <ClInclude Include="encryption\xor.h" />
     <ClInclude Include="ETW\etw.h" />
