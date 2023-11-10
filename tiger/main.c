@@ -86,7 +86,7 @@ int main(void) {
 	}
 
 	// Increase the number for longer operation
-	for (int i = 0; i < 1; i++) {
+	for (int i = 0; i < 4; i++) {
 		camoflage_IAT();
 	}
 
