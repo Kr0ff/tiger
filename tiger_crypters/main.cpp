@@ -4,7 +4,7 @@
 int wmain(int argc, wchar_t* argv[]) {
 
 	// Modifications done in rc4.cpp
-	//_CryptMemory032();
+	_CryptMemory032();
 
 	unsigned char bytes[] = {
 		0x31, 0xc0,
@@ -17,7 +17,7 @@ int wmain(int argc, wchar_t* argv[]) {
 	DWORD _size = sizeof(bytes);
 
 	unsigned char _key = 0x86;
-	xor_cryptA(bytes, _key, _size);
+	//xor_cryptA(bytes, _key, _size);
 
 	return 0;
 }

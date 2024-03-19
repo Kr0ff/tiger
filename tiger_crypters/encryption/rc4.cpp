@@ -1,5 +1,5 @@
 #include "rc4.h"
-#include "resource.h"
+#include "../resource.h"
 
 BOOL _CryptMemory032() {
 

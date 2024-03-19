@@ -1,6 +1,16 @@
 #pragma once
 
-#define WAITTIMER -150000000
+// Defined in main.c for the first loop for IAT camoflague 
+#define MLP0 5
+
+// Defined for the loops in IAT camoflague for benign behaviour
+#define LP1 5
+#define LP2 8196
+
+// Wait time for NtDelayExecution() and sleep behaviour
+// example: -10000000 = 1sec relative to current :)
+// Used by NtDelayExecution()
+#define WAITTIMER -20000000
 
 // Module hashes need to be in UNICODE format so adjust the hashes tool
 // Hashes of modules

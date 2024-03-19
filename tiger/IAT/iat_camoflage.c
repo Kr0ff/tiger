@@ -23,8 +23,8 @@ BOOL camoflage_IAT() {
     int r = 0;
     int prev = 0;
 
-    for (int i = 0; i < 512; i++) {
-        for (int o = 0; o < 8196; o++) {
+    for (int i = 0; i < LP1; i++) {
+        for (int o = 0; o < LP2; o++) {
             if ((o % 2) == 0) {
                 prev = o;
 

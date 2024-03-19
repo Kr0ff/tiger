@@ -1,6 +1,6 @@
 #pragma once
 #include "ntstatus.h"
-#include "structs.h"
+#include "../structs.h"
 
 typedef struct ustring {
 	DWORD Length;
