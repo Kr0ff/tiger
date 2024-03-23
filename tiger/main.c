@@ -1,3 +1,4 @@
+#pragma warning (disable : 4090 4715)
 #include "structs.h"
 #include "debug/debug.h"
 
@@ -114,7 +115,7 @@ int main(void) {
 #endif
 		debugged = TRUE;
 	}
-
+	 
 	if (debugged == TRUE) {
 #ifdef DEBUG
 		PRINTA("[-] Debugger attached\n");

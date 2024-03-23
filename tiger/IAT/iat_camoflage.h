@@ -1,3 +1,4 @@
+#pragma warning ( disable : 4047)
 #include "../structs.h"
 #include "../typedefs.h"
 

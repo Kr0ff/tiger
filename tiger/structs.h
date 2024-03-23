@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning (disable : 4005) // Disable macro redefition warnings
 #include <windows.h>
 
 #define NT_SUCCESS(Status) (((NTSTATUS)(Status)) >= 0)
